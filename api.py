@@ -12,7 +12,7 @@ from flask import Flask, request, abort, Response
 from flask_restful import Api, Resource
 from flasgger import Swagger
 from flask_cors import CORS
-from similarity import FunctionalSimilarity
+from model import ReasonerModel
 
 app = Flask(__name__)
 
@@ -62,6 +62,9 @@ class KGStandardAPIResource(Resource):
 class ReasonerQuery(KGStandardAPIResource):
     """ Reasoner Query. """
 
+    def __init__(self):
+        self.model = ReasonerModel ()
+        
     def post(self):
         """
         query
@@ -93,13 +96,12 @@ class ReasonerQuery(KGStandardAPIResource):
         self.validate (request)
         print (json.dumps(request.json, indent=2))
 
-        fa_gene_curies = [ 'HGNC:23845' ]
-        fsim = FunctionalSimilarity ()
-        fsim.load_gene_set(gene_set=fa_gene_curies)
-        fsim.load_associations()
-        human_fsim_genes = fsim.compute_similarity()
-        
-        return self.normalize_message (request.json)
+        ''' Execute the reasoner engine to build the output KG. '''
+        response = self.model.compile (request.json['query_graph'])
+        print (json.dumps(response, indent=2))
+
+        self.validate (response)
+        return self.normalize_message (response)
 
 # Generic
 api.add_resource(ReasonerQuery, '/graph/query')

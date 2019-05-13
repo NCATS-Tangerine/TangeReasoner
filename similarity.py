@@ -38,7 +38,8 @@ class GenericSimilarity(object):
                 url = "http://current.geneontology.org/annotations/mgi.gaf.gz"
             if group == 'human':
                 url = "http://current.geneontology.org/annotations/goa_human.gaf.gz"
-            assocs = p.parse(url)
+            assocs = p.parse ('goa_human.gaf.gz')
+            #assocs = p.parse(url)
             self.assocs = assocs
             assocs = [x for x in assocs if 'header' not in x.keys()]
             assocs = [x for x in assocs if x['object']['id'] in go_roots]
@@ -116,8 +117,8 @@ class FunctionalSimilarity(GenericSimilarity):
     def load_associations(self):
         self.retrieve_associations(ont=self.ont, group=self.group)
 
-    def load_gene_set(self, gene_set):
-        for gene in gene_set: #self.input_object['input']:
+    def load_gene_set(self):
+        for gene in self.input_object['input']:
             mg = MyGeneInfo()
             gene_curie = ''
             sim_input_curie = ''
@@ -145,37 +146,7 @@ class FunctionalSimilarity(GenericSimilarity):
                 'sim_input_curie': sim_input_curie,
                 'input_symbol': gene['hit_symbol']
             })
-
-    def load_gene_set(self, gene_set):
-        human_taxon = 'human' #'NCBITaxon:9606'
-        for gene in gene_set: #self.input_object['input']:
-            mg = MyGeneInfo()
-            gene_curie = ''
-            sim_input_curie = ''
-            symbol = ''
-            if 'MGI' in gene:
-                gene_curie =  gene
-                sim_input_curie = gene.replace('MGI', 'MGI:MGI')
-                symbol = None
-            if 'HGNC' in gene:
-                gene_curie = gene.replace('HGNC', 'hgnc')
-                scope = 'HGNC'
-                mg_hit = mg.query(gene_curie,
-                                  scopes=scope,
-                                  species=human_taxon, # TODO - fix hardocded taxon: # self.input_object['parameters']['taxon'],
-                                  fields='uniprot, symbol, HGNC',
-                                  entrezonly=True)
-                try:
-                    gene_curie = gene
-                    sim_input_curie = 'UniProtKB:{}'.format(mg_hit['hits'][0]['uniprot']['Swiss-Prot'])
-                except Exception as e:
-                    print(gene, e)
-
-            self.gene_set.append({
-                'input_id': gene_curie,
-                'sim_input_curie': sim_input_curie,
-                'input_symbol': gene #['hit_symbol']
-            })
+            
     def compute_similarity(self):
         group = self.input_object['parameters']['taxon']
         lower_bound = float(self.input_object['parameters']['threshold'])

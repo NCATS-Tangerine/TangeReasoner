@@ -10,7 +10,8 @@ request = {
         "nodes": [
             {
                 "node_id": "n00",
-                "type": "gene"
+                "type": "gene",
+                "curie": "HGNC:23845"
             },
             {
                 "node_id": "n01",
@@ -20,7 +21,7 @@ request = {
         "edges": [
             {
                 "edge_id": "e00",
-                "type": "association",
+                "type": "functional_similarity",
                 "source_id": "n00",
                 "target_id": "n01"
             } 
@@ -44,5 +45,5 @@ request = {
 
 response = requests.post (url, json=request)
 print (response.text)
-json.dumps (response.json (), indent=2)
+print (json.dumps (response.json (), indent=2))
 
