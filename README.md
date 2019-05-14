@@ -34,7 +34,7 @@ python api.py
 ```
 
 ## Run the Client
-This posts a KGS Message object to the endpoint.
+This posts a KGS [Message](https://github.com/NCATS-Tangerine/NCATS-ReasonerStdAPI/blob/master/API/TranslatorReasonersAPI.yaml#L135) object to the endpoint.
 ```
 python client.py
 ```
