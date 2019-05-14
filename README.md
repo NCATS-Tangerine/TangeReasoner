@@ -1,4 +1,4 @@
-# TangerineReasoner
+# TangeReasoner
 
 A Translator [Knowledge Graph Standard (KGS)](https://github.com/NCATS-Tangerine/NCATS-ReasonerStdAPI) API for assorted Tangerine modules.
 
