@@ -10,7 +10,7 @@ The longer term hope is to
 * Modularize some of the common boilerplate of building a reasoner
 * Produce a repo folks can fork to get started with less startup cost
 
-A recent Tangerine mini-hackathon identified [capabilities](https://github.com/ncats/translator-workflows/tree/296d7e412cf7fb3875ffc3bc30b02bb0761f56cb/Workflow2/Modules) we want to expose via multiple automation environemnts (Jupyter, CWL, TranQL). We discussed the idea that it would help to expose these capabilities first via the KGS API and have the automation layer call KGS. The TangeReasoner is the first step towards that goal state.
+A recent Tangerine mini-hackathon identified [capabilities](https://github.com/ncats/translator-workflows/tree/296d7e412cf7fb3875ffc3bc30b02bb0761f56cb/Workflow2/Modules) we want to expose via multiple automation environments (Jupyter, CWL, TranQL). We discussed exposing them first via the KGS API and having the automation layer call KGS. The TangeReasoner is the first step towards that goal state.
 
 ## Configure
 Requires Python 3.7+
