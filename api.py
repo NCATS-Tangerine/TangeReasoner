@@ -44,7 +44,7 @@ class KGStandardAPIResource(Resource):
         to_validate["components"].pop("Message", None)
         to_validate['additionalProperties'] = False
         try:
-            jsonschema.validate(request.json, to_validate)
+            jsonschema.validate(request, to_validate)
         except jsonschema.exceptions.ValidationError as error:
             print (f"ERROR: {str(error)}")
             abort(Response(str(error), 400))
@@ -93,7 +93,7 @@ class ReasonerQuery(KGStandardAPIResource):
                             type: string
 
         """
-        self.validate (request)
+        self.validate (request.json)
         print (json.dumps(request.json, indent=2))
 
         ''' Execute the reasoner engine to build the output KG. '''

@@ -111,7 +111,8 @@ class ReasonerModel:
             'results' : answers
         }
     
-    def gene__functional_similarity__gene (self, input_gene):
+    def stub_gene__functional_similarity__gene0 (self, input_gene):
+        """ """
         return {
             "nodes": [
                 {
